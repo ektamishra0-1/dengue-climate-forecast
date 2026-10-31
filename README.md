@@ -22,16 +22,15 @@ Dataset source and redistribution permissions must be documented before the data
 
 Current Progress
 
-* Initial data inspection
-* Data cleaning and validation
-* Cleaned master dataset generated
-* DVC initialized
-* Raw and cleaned datasets tracked with DVC
-* Exploratory data analysis
-* Feature engineering
-* Baseline forecasting models
-* Advanced time-series models
-* Model evaluation
+* [x] Initial data inspection
+* [x] Data cleaning and validation
+* [x] Cleaned master dataset generated (`data/dengue_cleaned_master.csv`)
+* [x] DVC initialized and data tracked (`data/*.dvc`)
+* [x] Exploratory data analysis (`data_analysis/eda.ipynb`)
+* [x] Feature engineering (`data_analysis/feature_engineering.ipynb`, `data/dengue_features.csv`)
+* [ ] Baseline forecasting models (Seasonal Naive, Auto-ARIMA, SARIMAX)
+* [ ] Advanced time-series & ML models (LightGBM, XGBoost, CatBoost)
+* [ ] Model evaluation and metric comparison
 
 Project Structure
 
@@ -39,9 +38,15 @@ dengue-climate-forecast/
 ├── data/
 │   ├── .gitignore
 │   ├── data_2000_2019.csv.dvc
-│   └── dengue_cleaned_master.csv.dvc
+│   ├── dengue_cleaned_master.csv.dvc
+│   └── dengue_features.csv.dvc
 ├── data_analysis/
-│   └── clean.ipynb
+│   ├── clean.ipynb
+│   ├── eda.ipynb
+│   ├── feature_engineering.ipynb
+│   ├── generate_eda_notebook.py
+│   ├── generate_feature_engineering_notebook.py
+│   └── execute_notebook.py
 ├── .dvc/
 ├── .dvcignore
 ├── .gitignore
