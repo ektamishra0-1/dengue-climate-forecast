@@ -1,0 +1,25 @@
+Location,Code,Transformation,ADF Stat,ADF p-val,ADF Decision,KPSS Stat,KPSS p-val,KPSS Decision,Joint Status,Series Variance
+Belo Horizonte,31030,"Original Level (d=0, D=0)",-1.9774,0.2966,Unit Root,0.6407,0.0189,Non-Stationary,Non-Stationary,2.8274
+Belo Horizonte,31030,"First Difference (d=1, D=0)",-4.4289,0.0003,Stationary,0.0226,0.1,Stationary,Stationary (Both agree),0.6481
+Belo Horizonte,31030,"Seasonal Difference (d=0, D=1)",-2.7055,0.0731,Unit Root,0.1241,0.1,Stationary,Ambiguous / Weak Stationarity,2.0739
+Belo Horizonte,31030,"First + Seasonal Diff (d=1, D=1)",-4.2266,0.0006,Stationary,0.038,0.1,Stationary,Stationary (Both agree),0.3755
+Goiânia,52010,"Original Level (d=0, D=0)",-1.6246,0.4703,Unit Root,0.9972,0.01,Non-Stationary,Non-Stationary,1.5545
+Goiânia,52010,"First Difference (d=1, D=0)",-4.0135,0.0013,Stationary,0.0268,0.1,Stationary,Stationary (Both agree),0.3457
+Goiânia,52010,"Seasonal Difference (d=0, D=1)",-3.6813,0.0044,Stationary,0.0798,0.1,Stationary,Stationary (Both agree),0.956
+Goiânia,52010,"First + Seasonal Diff (d=1, D=1)",-4.0148,0.0013,Stationary,0.0304,0.1,Stationary,Stationary (Both agree),0.2364
+Fortaleza,23016,"Original Level (d=0, D=0)",-3.3581,0.0125,Stationary,0.174,0.1,Stationary,Stationary (Both agree),1.6677
+Fortaleza,23016,"First Difference (d=1, D=0)",-8.3439,0.0,Stationary,0.0185,0.1,Stationary,Stationary (Both agree),0.3303
+Fortaleza,23016,"Seasonal Difference (d=0, D=1)",-3.0461,0.0308,Stationary,0.043,0.1,Stationary,Stationary (Both agree),2.5042
+Fortaleza,23016,"First + Seasonal Diff (d=1, D=1)",-4.0575,0.0011,Stationary,0.0247,0.1,Stationary,Stationary (Both agree),0.3845
+Manaus,13007,"Original Level (d=0, D=0)",-3.2783,0.0159,Stationary,0.3264,0.1,Stationary,Stationary (Both agree),1.4604
+Manaus,13007,"First Difference (d=1, D=0)",-3.7474,0.0035,Stationary,0.0196,0.1,Stationary,Stationary (Both agree),0.2705
+Manaus,13007,"Seasonal Difference (d=0, D=1)",-3.1131,0.0256,Stationary,0.0614,0.1,Stationary,Stationary (Both agree),2.3018
+Manaus,13007,"First + Seasonal Diff (d=1, D=1)",-6.1977,0.0,Stationary,0.0401,0.1,Stationary,Stationary (Both agree),0.4193
+Maringá,41009,"Original Level (d=0, D=0)",-2.0692,0.2571,Unit Root,0.3579,0.0953,Stationary,Ambiguous / Weak Stationarity,3.0004
+Maringá,41009,"First Difference (d=1, D=0)",-8.4833,0.0,Stationary,0.0134,0.1,Stationary,Stationary (Both agree),0.844
+Maringá,41009,"Seasonal Difference (d=0, D=1)",-3.3316,0.0135,Stationary,0.0874,0.1,Stationary,Stationary (Both agree),3.3048
+Maringá,41009,"First + Seasonal Diff (d=1, D=1)",-5.353,0.0,Stationary,0.0226,0.1,Stationary,Stationary (Both agree),0.8693
+National Aggregate (Brazil),0,"Original Level (d=0, D=0)",-1.6456,0.4593,Unit Root,0.7721,0.01,Non-Stationary,Non-Stationary,1.2338
+National Aggregate (Brazil),0,"First Difference (d=1, D=0)",-3.711,0.004,Stationary,0.0289,0.1,Stationary,Stationary (Both agree),0.2777
+National Aggregate (Brazil),0,"Seasonal Difference (d=0, D=1)",-3.395,0.0111,Stationary,0.1726,0.1,Stationary,Stationary (Both agree),0.5155
+National Aggregate (Brazil),0,"First + Seasonal Diff (d=1, D=1)",-5.4665,0.0,Stationary,0.0405,0.1,Stationary,Stationary (Both agree),0.0853

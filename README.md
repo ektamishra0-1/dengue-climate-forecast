@@ -28,9 +28,10 @@ Current Progress
 * [x] DVC initialized and data tracked (`data/*.dvc`)
 * [x] Exploratory data analysis (`data_analysis/eda.ipynb`)
 * [x] Feature engineering (`data_analysis/feature_engineering.ipynb`, `data/dengue_features.csv`)
-* [ ] Baseline forecasting models (Seasonal Naive, Auto-ARIMA, SARIMAX)
-* [ ] Advanced time-series & ML models (LightGBM, XGBoost, CatBoost)
-* [ ] Model evaluation and metric comparison
+* [x] Classical time-series forecasting models (Seasonal Naive, ARIMA, SARIMA, Holt-Winters, SARIMAX)
+* [x] Classical model evaluation and metric comparison (`results/metrics/`)
+* [ ] Advanced spatio-temporal machine learning models (LightGBM, XGBoost, CatBoost)
+* [ ] Final model comparison and operational dashboard
 
 Project Structure
 
@@ -47,6 +48,24 @@ dengue-climate-forecast/
 │   ├── generate_eda_notebook.py
 │   ├── generate_feature_engineering_notebook.py
 │   └── execute_notebook.py
+├── modelling/
+│   ├── config.py
+│   ├── preprocessing.py
+│   ├── stationarity.py
+│   ├── models.py
+│   ├── evaluation.py
+│   ├── visualisation.py
+│   ├── classical_forecasting.ipynb
+│   ├── generate_classical_forecasting_notebook.py
+│   └── README.md
+├── results/
+│   ├── figures/
+│   ├── metrics/
+│   └── predictions/
+├── tests/
+│   ├── test_preprocessing.py
+│   ├── test_models.py
+│   └── test_evaluation.py
 ├── .dvc/
 ├── .dvcignore
 ├── .gitignore
