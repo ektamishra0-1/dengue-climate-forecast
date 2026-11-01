@@ -389,3 +389,4 @@ Having established rigorous classical baselines, the project proceeds to:
    * Measure whether gradient boosting can reduce the microregion test error below SARIMA's $\text{MAE}_{\text{orig}} = 17.98$ and $\text{RMSE}_{\text{orig}} = 34.56$.
 3. **Clinical Outbreak Early-Warning Classification**:
    * Evaluate classifiers on predicting the binary epidemic alert threshold ($\ge 100$ cases per 100k population) using Precision-Recall AUC (PR-AUC) and F1-score.
+
