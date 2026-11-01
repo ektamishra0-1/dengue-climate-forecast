@@ -30,8 +30,10 @@ Current Progress
 * [x] Feature engineering (`data_analysis/feature_engineering.ipynb`, `data/dengue_features.csv`)
 * [x] Classical time-series forecasting models (Seasonal Naive, ARIMA, SARIMA, Holt-Winters, SARIMAX)
 * [x] Classical model evaluation and metric comparison (`results/metrics/`)
+* [x] Operational research demonstration dashboard (DengueCast: Streamlit & Plotly in `dashboard/`)
 * [ ] Advanced spatio-temporal machine learning models (LightGBM, XGBoost, CatBoost)
-* [ ] Final model comparison and operational dashboard
+
+For step-by-step setup, dependency installation, DVC retrieval, and dashboard launch instructions, please see [SETUP.md](SETUP.md).
 
 Project Structure
 
@@ -58,18 +60,27 @@ dengue-climate-forecast/
 │   ├── classical_forecasting.ipynb
 │   ├── generate_classical_forecasting_notebook.py
 │   └── README.md
+├── dashboard/
+│   ├── app.py
+│   ├── data_loader.py
+│   ├── requirements.txt
+│   └── README.md
 ├── results/
 │   ├── figures/
 │   ├── metrics/
 │   └── predictions/
+├── reports/
+│   └── phase2_midsemester_report.md
 ├── tests/
 │   ├── test_preprocessing.py
 │   ├── test_models.py
-│   └── test_evaluation.py
+│   ├── test_evaluation.py
+│   └── test_dashboard.py
 ├── .dvc/
 ├── .dvcignore
 ├── .gitignore
 ├── requirements.txt
+├── SETUP.md
 └── README.md
 
 Tools and Technologies
