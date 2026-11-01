@@ -107,3 +107,4 @@ PYTHONPATH=. .venv/bin/pytest tests/
 - **No Synthetic Data:** Every chart, metric card, and prediction line is loaded from actual precomputed pipeline outputs (`data/dengue_features.csv`, `results/metrics/`, `results/predictions/`).
 - **No Data Leakage:** Preprocessing transformations and stationarity decisions were determined strictly on training partitions (2002–2015).
 - **Strict Chronological Order:** Validation (2016–2017) and Test (2018–2019) partitions were evaluated sequentially without lookahead bias.
+

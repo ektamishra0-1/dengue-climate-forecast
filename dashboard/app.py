@@ -119,33 +119,37 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # -----------------------------------------------------------------------------
 def get_plotly_layout(**kwargs) -> go.Layout:
     """Standardizes Plotly figures with dark navy / teal styling."""
-    layout = go.Layout(
-        template="plotly_dark",
-        paper_bgcolor="rgba(10, 25, 47, 0)",
-        plot_bgcolor="rgba(17, 34, 64, 0.4)",
-        font=dict(color="#CCD6F6", family="sans-serif", size=12),
-        margin=dict(l=40, r=40, t=50, b=40),
-        xaxis=dict(
+    base = {
+        "template": "plotly_dark",
+        "paper_bgcolor": "rgba(10, 25, 47, 0)",
+        "plot_bgcolor": "rgba(17, 34, 64, 0.4)",
+        "font": dict(color="#CCD6F6", family="sans-serif", size=12),
+        "margin": dict(l=40, r=40, t=50, b=40),
+        "xaxis": dict(
             gridcolor="#1F2D4A",
             zerolinecolor="#233554",
             showline=True,
             linecolor="#233554"
         ),
-        yaxis=dict(
+        "yaxis": dict(
             gridcolor="#1F2D4A",
             zerolinecolor="#233554",
             showline=True,
             linecolor="#233554"
         ),
-        legend=dict(
+        "legend": dict(
             bgcolor="rgba(17, 34, 64, 0.7)",
             bordercolor="#233554",
             borderwidth=1,
             font=dict(size=11)
         ),
-        **kwargs
-    )
-    return layout
+    }
+    for k, v in kwargs.items():
+        if isinstance(v, dict) and k in base and isinstance(base[k], dict):
+            base[k] = {**base[k], **v}
+        else:
+            base[k] = v
+    return go.Layout(**base)
 
 # -----------------------------------------------------------------------------
 # Sidebar Navigation
@@ -280,7 +284,7 @@ if nav_section == "1. Overview":
         )
     )
     fig_nat.update_layout(layout)
-    st.plotly_chart(fig_nat, use_container_width=True)
+    st.plotly_chart(fig_nat, width="stretch")
     
     st.markdown("""
     <div class="takeaway-box">
@@ -352,7 +356,7 @@ elif nav_section == "2. Exploratory Data Analysis":
             yaxis=dict(title="Cumulative Cases (Thousands)", color="#00B4D8"),
             yaxis2=dict(title="Mean Incidence (per 100k)", color="#FFD166", overlaying="y", side="right")
         ))
-        st.plotly_chart(fig_season, use_container_width=True)
+        st.plotly_chart(fig_season, width="stretch")
         
         st.markdown("""
         <div class="takeaway-box">
@@ -395,7 +399,7 @@ elif nav_section == "2. Exploratory Data Analysis":
             title="Comparison of Raw Positive Incidence vs. log1p Transformed Distribution",
             showlegend=False
         ))
-        st.plotly_chart(fig_dist, use_container_width=True)
+        st.plotly_chart(fig_dist, width="stretch")
         
         st.markdown("""
         <div class="takeaway-box">
@@ -422,7 +426,7 @@ elif nav_section == "2. Exploratory Data Analysis":
                 color_continuous_scale="Teal"
             )
             fig_reg.update_layout(get_plotly_layout())
-            st.plotly_chart(fig_reg, use_container_width=True)
+            st.plotly_chart(fig_reg, width="stretch")
             
         with colR2:
             fig_bio = px.bar(
@@ -434,7 +438,7 @@ elif nav_section == "2. Exploratory Data Analysis":
                 color_continuous_scale="Viridis"
             )
             fig_bio.update_layout(get_plotly_layout())
-            st.plotly_chart(fig_bio, use_container_width=True)
+            st.plotly_chart(fig_bio, width="stretch")
             
         st.markdown("""
         <div class="takeaway-box">
@@ -495,7 +499,7 @@ elif nav_section == "3. Climate Analysis":
         fig_temp.update_yaxes(title="Mean Incidence per 100k", row=1, col=2)
         
         fig_temp.update_layout(get_plotly_layout(title="Non-Linear Thermal Constraints on Dengue Incidence in Brazil", showlegend=False))
-        st.plotly_chart(fig_temp, use_container_width=True)
+        st.plotly_chart(fig_temp, width="stretch")
         
         st.markdown("""
         <div class="takeaway-box">
@@ -528,7 +532,7 @@ elif nav_section == "3. Climate Analysis":
             color_continuous_scale="Teal"
         )
         fig_pdsi.update_layout(get_plotly_layout())
-        st.plotly_chart(fig_pdsi, use_container_width=True)
+        st.plotly_chart(fig_pdsi, width="stretch")
         
         st.markdown("""
         <div class="takeaway-box">
@@ -565,7 +569,7 @@ elif nav_section == "3. Climate Analysis":
             xaxis=dict(title="Climate Lag (Months Lead)", dtick=1),
             yaxis=dict(title="Pearson Correlation with Incidence")
         ))
-        st.plotly_chart(fig_ccf, use_container_width=True)
+        st.plotly_chart(fig_ccf, width="stretch")
         
         st.markdown("""
         <div class="takeaway-box">
@@ -603,22 +607,32 @@ elif nav_section == "4. Stationarity & Diagnostics":
         "ADF Stat": "{:.4f}", "ADF p-val": "{:.4f}",
         "KPSS Stat": "{:.4f}", "KPSS p-val": "{:.4f}",
         "Series Variance": "{:.4f}"
-    }), use_container_width=True)
+    }), width="stretch")
     
     st.markdown("### Rolling Statistics (12-Month Window)")
     
     # Compute rolling stats for the selected location
     # Map selection back to code
-    rev_map = {m["name"]: k for k, m in LOCATION_MAP.items() if m["name"] in loc_names}
-    sel_code = rev_map.get(sel_loc, "Belo Horizonte")
+    loc_to_key = {
+        "Belo Horizonte": "Belo Horizonte",
+        "Goiânia": "Goiania",
+        "Goiania": "Goiania",
+        "Fortaleza": "Fortaleza",
+        "Manaus": "Manaus",
+        "Maringá": "Maringa",
+        "Maringa": "Maringa",
+        "National Aggregate (Brazil)": "National_Aggregate",
+        "National_Aggregate": "National_Aggregate"
+    }
+    sel_code = loc_to_key.get(sel_loc, "Belo Horizonte")
     
-    # Extract training series
+    # Extract training series (2002-2015)
     if sel_code == "National_Aggregate":
-        s_target = nat_df.set_index("date")["log1p_incidence"].loc[:"2015-12-01"]
+        s_target = nat_df.set_index("date")["log1p_incidence"].loc["2002-01-01":"2015-12-01"]
     else:
         # Load microregion series
         c_int = LOCATION_MAP[sel_code]["code"]
-        sub_s = eda_df[eda_df["micro_code"] == c_int].sort_values("date").set_index("date")["log1p_incidence"].loc[:"2015-12-01"]
+        sub_s = eda_df[eda_df["micro_code"] == c_int].sort_values("date").set_index("date")["log1p_incidence"].loc["2002-01-01":"2015-12-01"]
         s_target = sub_s
         
     roll_m = s_target.rolling(12).mean()
@@ -634,7 +648,7 @@ elif nav_section == "4. Stationarity & Diagnostics":
         xaxis=dict(title="Date"),
         yaxis=dict(title="log1p(Incidence)")
     ))
-    st.plotly_chart(fig_roll, use_container_width=True)
+    st.plotly_chart(fig_roll, width="stretch")
     
     st.markdown("""
     <div class="takeaway-box">
@@ -697,14 +711,14 @@ elif nav_section == "5. Model Comparison":
         color_discrete_sequence=["#64FFDA", "#00B4D8", "#48CAE4", "#90E0EF", "#FF4B4B"]
     )
     fig_comp.update_layout(get_plotly_layout(showlegend=False))
-    st.plotly_chart(fig_comp, use_container_width=True)
+    st.plotly_chart(fig_comp, width="stretch")
     
     st.markdown("### Comprehensive Evaluation Metrics Table")
     st.dataframe(display_df.style.format({
         "MAE (log1p)": "{:.4f}", "RMSE (log1p)": "{:.4f}", "sMAPE% (log1p)": "{:.2f}%",
         "MASE (log1p)": "{:.4f}", "MAE (orig)": "{:.2f}", "RMSE (orig)": "{:.2f}",
         "sMAPE% (orig)": "{:.2f}%", "MAPE% (orig, >=1)": "{:.2f}%"
-    }), use_container_width=True)
+    }), width="stretch")
     
     st.markdown("""
     <div class="takeaway-box">
@@ -789,7 +803,7 @@ elif nav_section == "6. Forecast Explorer":
             xaxis=dict(title="Forecast Month"),
             yaxis=dict(title="log1p(Incidence)" if is_log else "Incidence per 100k Population")
         ))
-        st.plotly_chart(fig_fore, use_container_width=True)
+        st.plotly_chart(fig_fore, width="stretch")
         
         # Residuals Plot
         st.subheader("Forecast Residuals ($e_t = y_t - \\hat{y}_t$)")
@@ -810,7 +824,7 @@ elif nav_section == "6. Forecast Explorer":
             xaxis=dict(title="Forecast Month"),
             yaxis=dict(title="Residual Error (e_t)")
         ))
-        st.plotly_chart(fig_err, use_container_width=True)
+        st.plotly_chart(fig_err, width="stretch")
         
         st.markdown(f"""
         <div class="takeaway-box">
@@ -818,3 +832,4 @@ elif nav_section == "6. Forecast Explorer":
             <br>Notice how SARIMA adapts smoothly to seasonal turns without lagging behind the epidemic wave peak.
         </div>
         """, unsafe_allow_html=True)
+

@@ -110,3 +110,36 @@ def test_metrics_and_predictions_consistency():
     
     # Tolerant to 3 decimal places
     assert np.isclose(calc_mae, reported_mae, atol=1e-3)
+
+
+def test_streamlit_app_all_sections_end_to_end():
+    """Verify that all 6 navigation sections render without raising any runtime exceptions."""
+    from streamlit.testing.v1 import AppTest
+    from pathlib import Path
+    app_path = Path(__file__).resolve().parent.parent / "dashboard" / "app.py"
+    at = AppTest.from_file(str(app_path), default_timeout=30)
+    
+    # 1. Overview
+    at.run()
+    assert not at.exception, f"Overview section raised exception: {at.exception}"
+    
+    # 2. EDA
+    at.sidebar.radio[0].set_value("2. Exploratory Data Analysis").run()
+    assert not at.exception, f"EDA section raised exception: {at.exception}"
+    
+    # 3. Climate
+    at.sidebar.radio[0].set_value("3. Climate Analysis").run()
+    assert not at.exception, f"Climate section raised exception: {at.exception}"
+    
+    # 4. Stationarity
+    at.sidebar.radio[0].set_value("4. Stationarity & Diagnostics").run()
+    assert not at.exception, f"Stationarity section raised exception: {at.exception}"
+    
+    # 5. Model Comparison
+    at.sidebar.radio[0].set_value("5. Model Comparison").run()
+    assert not at.exception, f"Model comparison section raised exception: {at.exception}"
+    
+    # 6. Forecast Explorer
+    at.sidebar.radio[0].set_value("6. Forecast Explorer").run()
+    assert not at.exception, f"Forecast explorer section raised exception: {at.exception}"
+
